@@ -56,6 +56,7 @@ class Post(models.Model):
         return f'Заголовок: {self.title}\n Статья: {self.text[:124]} ...'
 
 
+
 class PostCategory(models.Model):
     postThrough = models.ForeignKey(Post, on_delete=models.CASCADE)
     categoryThrough = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -108,7 +109,7 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
-    class Meta:
-        verbose_name = "Новость"
-        verbose_name_plural = "Новости"
-        ordering = ['-pub_date']  # Сортировка по дате (от новых к старым)
+class Meta:
+    verbose_name = "Новость"
+    verbose_name_plural = "Новости"
+    ordering = ['-pub_date']  # Сортировка по дате (от новых к старым)
