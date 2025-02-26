@@ -1,15 +1,11 @@
 from django.contrib import admin
-from .models import News as Article
+from .models import News
 
-
-
-@admin.action(description="Mark selected stories as published")
-def make_published(modeladmin, request, queryset):
-    queryset.update(published=True)
-
+@admin.register(News)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ["title", "published"]
-    ordering = ["title"]
-    actions = [make_published]
+    list_display = ['title', 'short_content', 'published_date', 'author']
+    list_filter = ['published_date', 'author']
 
-admin.site.register(Article, ArticleAdmin)
+    def short_content(self, obj):
+        return obj.content[:50] + '...' if len(obj.content) > 50 else obj.content
+    short_content.short_description = 'Content Preview'
