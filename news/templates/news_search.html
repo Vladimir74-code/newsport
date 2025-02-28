@@ -1,22 +1,16 @@
-{% extends 'default.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
 <h1>Поиск новостей</h1>
 <form method="get">
     {{ filter.form.as_p }}
-    <button type="submit" class="btn btn-primary">Искать</button>
+    <button type="submit" class="btn btn-primary">Найти</button>
+    <a href="{% url 'news:news_list' %}" class="btn btn-secondary">Назад</a>
 </form>
-
-<h2>Результаты поиска</h2>
+<h2>Результаты</h2>
 <ul>
-    {% for post in filter.qs %}
-    <li>
-        <a href="{% url 'news_detail' post.id %}">{{ post.title }}</a>
-        <p>{{ post.dateCreation|date:"d.m.Y" }}</p>
-        <p>{{ post.text|truncatechars:20 }}</p>
-    </li>
-    {% empty %}
-    <li>Новости не найдены.</li>
+    {% for news in page_obj %}
+    <li>{{ news.title }} ({{ news.type|title }}) - {{ news.published_date|date:"d.m.Y" }}</li>
     {% endfor %}
 </ul>
 {% endblock %}

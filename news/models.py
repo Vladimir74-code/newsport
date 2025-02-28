@@ -1,6 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.db.models import Sum
+
+
 
 class Author(models.Model):
     authorUser = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -56,3 +58,4 @@ class Comment(models.Model):
     def like(self): self.rating += 1; self.save()
     def dislike(self): self.rating -= 1; self.save()
     def post_com(self): return f'Комментарий к статье:\n Дата: {self.dateCreation}\nПользователь: {self.commentUser}\n Рейтинг: {self.rating}\n Комментарий: {self.text}'
+
